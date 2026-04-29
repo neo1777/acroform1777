@@ -42,7 +42,7 @@ export const ModaleNomeCampo: React.FC<ModaleNomeCampoProps> = ({ isOpen, onClos
               type="text"
               value={nome}
               onChange={(e) => {
-                const val = e.target.value.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_]/g, '');
+                const val = e.target.value.replace(/\s+/g, '_').replace(/[^\p{L}\p{N}_]/gu, '');
                 setNome(val);
               }}
               className="w-full bg-[#2D2D2D] border border-[#444] rounded px-3 py-2 text-white font-mono text-sm focus:outline-none focus:border-blue-500"
@@ -52,7 +52,7 @@ export const ModaleNomeCampo: React.FC<ModaleNomeCampoProps> = ({ isOpen, onClos
               <p className="mt-2 text-[10px] text-red-400 uppercase tracking-widest">{error}</p>
             )}
             <p className="mt-2 text-[10px] text-gray-500">
-              Usa solo lettere, numeri e underscore. Gli spazi verranno convertiti.
+              Usa solo lettere (anche accentate), numeri e underscore. Gli spazi verranno convertiti.
             </p>
           </div>
           
