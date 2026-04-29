@@ -4,7 +4,7 @@ import { ZoomIn, ZoomOut, ChevronLeft, ChevronRight, Download, Upload, Grid } fr
 import { cn } from '../lib/utils';
 import { generaAcroForm, downloadPdf } from '../lib/pdf-export';
 import { ModaleDialogo } from './ModaleDialogo';
-import logoBianco from '../assets/logo-bianco.png';
+import logoBianco from '../assets/logo-bianco';
 
 export const Toolbar: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
