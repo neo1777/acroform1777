@@ -4,6 +4,7 @@ import { ZoomIn, ZoomOut, ChevronLeft, ChevronRight, Download, Upload, Grid } fr
 import { cn } from '../lib/utils';
 import { generaAcroForm, downloadPdf } from '../lib/pdf-export';
 import { ModaleDialogo } from './ModaleDialogo';
+import logoBianco from '../assets/logo-bianco.png';
 
 export const Toolbar: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -93,21 +94,7 @@ export const Toolbar: React.FC = () => {
         <div className="flex items-center space-x-6">
           <div className="flex items-center space-x-4">
             <a href="https://www.sea-srl.it/panoramica-aziendale" target="_blank" rel="noopener noreferrer" className="flex items-center group cursor-pointer transition-transform hover:scale-105">
-              <svg viewBox="0 0 100 100" className="w-9 h-9">
-                <g transform="translate(50, 50)">
-                  {/* The central star/shutter shapes. 5 light grey, 1 red */}
-                  <polygon points="-8,-4 -28,-36 -20,-40 -2,-12" fill="#E5E5E5" />
-                  <polygon points="8,-4 28,-36 20,-40 2,-12" fill="#E5E5E5" />
-                  <polygon points="12,-2 38,0 40,8 10,6" fill="#D0373D" />
-                  <polygon points="8,4 28,36 20,40 2,12" fill="#E5E5E5" />
-                  <polygon points="-8,4 -28,36 -20,40 -2,12" fill="#E5E5E5" />
-                  <polygon points="-12,-2 -38,0 -40,-8 -10,-6" fill="#E5E5E5" />
-                </g>
-              </svg>
-              <div className="flex flex-col ml-2 leading-none">
-                <span className="font-bold text-lg tracking-wider text-white">S&A</span>
-                <span className="text-[10px] tracking-[0.2em] text-neutral-400 font-medium whitespace-nowrap">STAY SAFE</span>
-              </div>
+              <img src={logoBianco} alt="S&A Stay Safe" className="h-[46px] w-auto" />
             </a>
             <div className="h-6 w-px bg-neutral-700 ml-2"></div>
             <div className="flex flex-col justify-center gap-0.5">
@@ -227,9 +214,10 @@ export const Toolbar: React.FC = () => {
           <button
             onClick={handleDownload}
             disabled={!pdfFile || campi.length === 0}
-            className="px-4 py-1.5 bg-brand-red hover:bg-[#D0373D] text-white rounded text-xs font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center space-x-2 px-4 py-1.5 bg-brand-red hover:bg-[#D0373D] text-white rounded text-xs font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Scarica AcroForm
+            <Download size={14} />
+            <span>Esporta PDF</span>
           </button>
         </div>
       </header>

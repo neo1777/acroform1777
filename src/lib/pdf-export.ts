@@ -1,4 +1,4 @@
-import { PDFDocument, rgb } from 'pdf-lib';
+import { PDFDocument, rgb, PDFHexString } from 'pdf-lib';
 import fontkit from '@pdf-lib/fontkit';
 import { Campo } from '../store/useAppStore';
 
@@ -9,6 +9,16 @@ export async function generaAcroForm(
   const pdfDoc = await PDFDocument.load(templateBytes);
   pdfDoc.registerFontkit(fontkit);
   const form = pdfDoc.getForm();
+
+  // Load a custom font to support accented characters and symbols properly
+  let customFont;
+  try {
+    const fontUrl = 'https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Me5WZLCzYlKw.ttf';
+    const fontBytes = await fetch(fontUrl).then(res => res.arrayBuffer());
+    customFont = await pdfDoc.embedFont(fontBytes);
+  } catch (err) {
+    console.warn("Failed to load custom font, falling back to standard font", err);
+  }
 
   for (const campo of campi) {
     const page = pdfDoc.getPages()[campo.pagina];
@@ -35,20 +45,38 @@ export async function generaAcroForm(
     });
 
     // Le coordinate sono già in pt, con origine in basso a sinistra
-    textField.addToPage(page, {
+    const appearance = {
       x: campo.x,
       y: campo.y,
       width: campo.width,
       height: campo.height,
       borderWidth: 0,
       backgroundColor: rgb(1, 1, 1), // Imposta lo sfondo bianco anche per il campo
-    });
+    };
+    
+    if (customFont) {
+      // @ts-ignore
+      appearance.font = customFont;
+    }
+
+    textField.addToPage(page, appearance);
 
     textField.setFontSize(campo.fontSize || 10);
+
+    // Apply custom format if present via PDF dictionary (TU for tooltip/format hint)
+    if (campo.formato) {
+      // We set the "TU" (Tooltip/Alternative text) property which often helps in indicating format to users
+      const fieldRef = textField.acroField.dict;
+      fieldRef.set(pdfDoc.context.obj('TU'), PDFHexString.fromText(campo.formato));
+    }
 
     // I campi dato S&A: contrassegnare come read-only
     if (campo.tipo === 'dato') {
       textField.enableReadOnly();
+    }
+    
+    if (customFont) {
+        textField.updateAppearances(customFont);
     }
   }
 
