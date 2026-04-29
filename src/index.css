@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-red: #C0272D;
+  --color-brand-black: #1A1A1A;
+  --color-brand-gray: #2D2D2D;
+  --color-brand-light: #F5F5F5;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-brand-black);
+  color: var(--color-brand-light);
+  overflow: hidden;
+}
+
+.canvas-container {
+  margin: 0 auto;
+}
+
+/* Radial gradient pattern for document background */
+.bg-checkerboard {
+  background-color: var(--color-brand-light);
+  background-image: radial-gradient(#d1d1d1 1px, transparent 0);
+  background-size: 24px 24px;
+}
