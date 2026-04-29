@@ -4,7 +4,6 @@ import { ZoomIn, ZoomOut, ChevronLeft, ChevronRight, Download, Upload, Grid } fr
 import { cn } from '../lib/utils';
 import { generaAcroForm, downloadPdf } from '../lib/pdf-export';
 import { ModaleDialogo } from './ModaleDialogo';
-import logoBianco from '../assets/logo-bianco.png';
 
 export const Toolbar: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -93,8 +92,8 @@ export const Toolbar: React.FC = () => {
       <header className="flex items-center justify-between px-6 py-3 border-b border-neutral-800 bg-[#1A1A1A] shrink-0 z-10 relative">
         <div className="flex items-center space-x-6">
           <div className="flex items-center space-x-4">
-            <a href="https://www.sea-srl.it/panoramica-aziendale" target="_blank" rel="noopener noreferrer" className="flex items-center group cursor-pointer transition-transform hover:scale-105">
-              <img src={logoBianco} alt="S&A Stay Safe" className="h-[46px] w-auto" />
+            <a href="https://www.sea-srl.it/" target="_blank" rel="noopener noreferrer" className="flex items-center group cursor-pointer transition-transform hover:scale-105">
+              <img src="./logo-bianco.png" alt="S&A Stay Safe" className="h-[46px] w-auto" />
             </a>
             <div className="h-6 w-px bg-neutral-700 ml-2"></div>
             <div className="flex flex-col justify-center gap-0.5">
